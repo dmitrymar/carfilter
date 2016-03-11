@@ -1,4 +1,5 @@
 {% extends 'filterpages/base.html' %}
+{% load humanize %}
 
 {% block content %}
     {% for post in posts %}
@@ -10,4 +11,33 @@
             <p>{{ post.text|linebreaks }}</p>
         </div>
     {% endfor %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3">
+
+            </div>
+            <div class="col-md-9">
+                <div class="row">
+                    {% for carmodel in carmodels %}
+                        <div class="col-sm-6 col-md-4">
+                            <a href="{{ carmodel.get_page_path }}">
+                                    <div class="thumbnail">
+                                      <img class="thumbnail-pic" src="{{ carmodel.get_thumb_url }}">
+                                      <div class="caption">
+                                        <p class="thumbnail-yearmake">{{ carmodel.year }} {{ carmodel.make }}</p>
+                                        <p class="thumbnail-model">{{ carmodel.model }}</p>
+                                        <p>{{ carmodel.styles }} styles</p>
+                                        <p>
+                                          <span class="thumbnail-msrp">Starting at</span> ${{ carmodel.lowest_price|intcomma }}
+                                          <span class="thumbnail-msrp">MSRP</span>
+                                        </p>
+                                      </div>
+                                    </div>
+                                  </a>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}
