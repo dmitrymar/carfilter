@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/1.9/ref/settings/
 
 import os
 
+from os import environ
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -20,7 +22,8 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/1.9/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '%1zas1ntq(e8m)cc!q+lr=lviorb#z3dfmjen_hplqs5zg4-zx'
+# This environ variable is set in ~/.virtualenvs/postactivate and predeactivate files
+SECRET_KEY = environ['SECRET_KEY']
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -75,14 +78,15 @@ WSGI_APPLICATION = 'filter.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/1.9/ref/settings/#databases
+# The environ variables are set in ~/.virtualenvs/postactivate and predeactivate files
 
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'hudsongreens',
-        'USER': 'dmitry',
-        'PASSWORD': 'Born1974',
-        'HOST': 'localhost',
+        'NAME': environ['DB_NAME'],
+        'USER': environ['DB_USERNAME'],
+        'PASSWORD': environ['DB_PASSWORD'],
+        'HOST': environ['DB_HOST'],
         'PORT': '',
     }
 }
