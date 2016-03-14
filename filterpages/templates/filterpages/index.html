@@ -1,16 +1,16 @@
 {% extends 'filterpages/base.html' %}
-{% load humanize %}
+{% load humanize filterpages_extras %}
 
 {% block content %}
-    {% for post in posts %}
+    <!-- {% for post in posts %}
         <div class="post">
             <div class="date">
                 <p>published: {{ post.published_date }}</p>
             </div>
             <h1><a href="{% url 'detail' pk=post.pk %}">{{ post.title }}</a></h1>
-            <p>{{ post.text|linebreaks }}</p>
+            <p>{{ post.text|linebreaks }}{% url 'detail' pk=post.pk %}</p>
         </div>
-    {% endfor %}
+    {% endfor %} -->
     <div class="container">
         <div class="row">
             <div class="col-md-3">
@@ -20,9 +20,9 @@
                 <div class="row">
                     {% for carmodel in carmodels %}
                         <div class="col-sm-6 col-md-4">
-                            <a href="{{ carmodel.get_page_path }}">
+                            <a href="{% url 'overview' year=carmodel.year make=carmodel.make|slugify model=carmodel.model|slugify body=carmodel.body|slugify %}">
                                     <div class="thumbnail">
-                                      <img class="thumbnail-pic" src="{{ carmodel.get_thumb_url }}">
+                                      <img class="thumbnail-pic" src="{{ carmodel.image_url|carpic:276 }}">
                                       <div class="caption">
                                         <p class="thumbnail-yearmake">{{ carmodel.year }} {{ carmodel.make }}</p>
                                         <p class="thumbnail-model">{{ carmodel.model }}</p>

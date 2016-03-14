@@ -15,6 +15,11 @@ def detail(request, pk):
     post = get_object_or_404(Post, pk=pk)
     return render(request, 'filterpages/detail.html', {'post': post})
 
+def test(request, pk):
+    carmodel = get_object_or_404(Carmodel, pk=pk)
+    return render(request, 'filterpages/test.html', {'carmodel': carmodel})
+
 # example url: http://localhost:8000/overview/2016/honda/accord/coupe/
 def overview(request, year, make, model, body=None):
-    return render(request, 'filterpages/overview.html')
+    carmodel = get_object_or_404(Carmodel, make=make)
+    return render(request, 'filterpages/overview.html', {'carmodel': carmodel})

@@ -1,5 +1,45 @@
 {% extends 'filterpages/base.html' %}
+{% load humanize filterpages_extras %}
 
 {% block content %}
-overview
+<div class="container">
+      <h1 id="title-placeholder">{{ carmodel.year }} {{ carmodel.make }} {{ carmodel.model }}</h1>
+      <div class="row">
+        <div class="col-xs-6" id="gallery-placeholder"><div id="overviewCarousel" class="carousel slide" data-ride="carousel">
+
+  <!-- Indicators -->
+
+  <!-- Wrapper for slides -->
+  <div class="carousel-inner" role="listbox">
+      <div class="item active"><img src="{{ carmodel.image_url|carpic:600 }}"></div>
+  </div>
+
+  <!-- Left and right controls -->
+</div></div>
+        <div class="col-xs-6">
+          <div class="row">
+            <div class="col-xs-12" id="specs-placeholder"><strong>MSPR</strong>
+<h3 class="overview-h3">$28,700 – $40,900</h3>
+  <br>
+  <strong>Fuel Economy (city/hwy)</strong>
+  <h3 class="overview-h3"><span>17-20</span> / <span>24-30</span> mpg</h3>
+<hr>
+<h3>Highlights</h3>
+
+<dl class="dl-horizontal feature-list">
+  <dt>Body Styles</dt>
+  <dd>4dr SUV<br> </dd>
+  <dt>Engines</dt>
+  <dd id="engines">245-hp, 2-liter 4-cylinder gas<br> 315-hp, 2.7-liter 6-cylinder gas<br> </dd>
+  <dt>Drive Train</dt>
+  <dd id="driveTrains">all wheel drive<br> front wheel drive<br> </dd>
+  <dt>Transmissions</dt>
+  <dd id="transmissions">6-speed automatic<br> </dd>
+</dl>  </div>
+          </div>
+        </div>
+      </div>
+
+
+    </div>
 {% endblock %}
