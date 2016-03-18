@@ -20,6 +20,6 @@ def test(request, pk):
     return render(request, 'filterpages/test.html', {'carmodel': carmodel})
 
 # example url: http://localhost:8000/overview/2016/honda/accord/coupe/
-def overview(request, year, make, model, body=None):
+def overview(request, year, make, model, body=None, version=None):
     carmodel = get_object_or_404(Carmodel, make=make)
     return render(request, 'filterpages/overview.html', {'carmodel': carmodel})

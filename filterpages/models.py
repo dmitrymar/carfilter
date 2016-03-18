@@ -33,22 +33,48 @@ class Carmodel(models.Model):
                                       default=SEDAN)
 
     year = models.PositiveSmallIntegerField(default=2016)
+    city_mpg = models.PositiveSmallIntegerField(blank=True, null=True)
+    hwy_mpg = models.PositiveSmallIntegerField(blank=True, null=True)
+    range = models.PositiveSmallIntegerField(blank=True, null=True)
+    battery = models.PositiveSmallIntegerField(blank=True, null=True, default=0)
+    motor = models.PositiveSmallIntegerField(blank=True, null=True)
+    # battery = models.CommaSeparatedIntegerField(
+    #     blank=True, max_length=255,
+    # )
+    power = models.CharField(max_length=255, default=0)
+    torque = models.PositiveSmallIntegerField(blank=True, null=True)
+    seats = models.PositiveSmallIntegerField(blank=True, null=True)
     make = models.CharField(max_length=60)
     model = models.CharField(max_length=60)
+    version = models.CharField(max_length=60, blank=True)
+    drive = models.CharField(max_length=60, blank=True)
     styles = models.PositiveSmallIntegerField(default=1)
     lowest_price = models.PositiveIntegerField()
     image_url = models.CharField(max_length=100)
 
     def get_page_path(self):
-        pagepath = "/".join(["/overview", str(self.year), self.make, self.model, self.body])
+        pagepath = "/".join(["/overview", str(self.year), self.make, self.model, self.body, self.version])
         return pagepath
 
-    def __str__(self):
-        return '%s %s %s %s %s %s %s %s' % (self.year,
-                                    self.make.lower(),
-                                    self.model.replace(" ", "-"),
-                                    self.body,
-                                    self.styles,
-                                    self.lowest_price,
-                                    self.image_url,
-                                    self.get_page_path())
+    # def __str__(self):
+    #     field_values = []
+    #     for field in self._meta.get_all_field_names():
+    #         field_values.append(getattr(self, field, ''))
+    #     return ' '.join(field_values)
+
+    # def __str__(self):
+    #     return '%s %s %s %s %s %s %s %s %s %s %s %s %s %s %s' % (self.year,
+    #                                 self.city_mpg,
+    #                                 self.hwy_mpg,
+    #                                 self.range,
+    #                                 self.battery,
+    #                                 self.motor,
+    #                                 self.power,
+    #                                 self.torque,
+    #                                 self.make.lower(),
+    #                                 self.model.replace(" ", "-"),
+    #                                 self.body,
+    #                                 self.styles,
+    #                                 self.lowest_price,
+    #                                 self.image_url,
+    #                                 self.get_page_path())

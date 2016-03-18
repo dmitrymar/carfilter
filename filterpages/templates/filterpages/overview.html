@@ -2,8 +2,9 @@
 {% load humanize filterpages_extras %}
 
 {% block content %}
+<br>
 <div class="container">
-      <h1 id="title-placeholder">{{ carmodel.year }} {{ carmodel.make }} {{ carmodel.model }}</h1>
+      <h1 id="title-placeholder">{{ carmodel.year }} {{ carmodel.make }} {{ carmodel.model }} {{ carmodel.version }}</h1>
       <div class="row">
         <div class="col-xs-6" id="gallery-placeholder"><div id="overviewCarousel" class="carousel slide" data-ride="carousel">
 
@@ -18,23 +19,24 @@
 </div></div>
         <div class="col-xs-6">
           <div class="row">
-            <div class="col-xs-12" id="specs-placeholder"><strong>MSPR</strong>
-<h3 class="overview-h3">$28,700 – $40,900</h3>
+            <div class="col-xs-12" id="specs-placeholder"><strong>MSPR (starting)</strong>
+<h3 class="overview-h3">{{ carmodel.lowest_price|intcomma }}</h3>
   <br>
-  <strong>Fuel Economy (city/hwy)</strong>
-  <h3 class="overview-h3"><span>17-20</span> / <span>24-30</span> mpg</h3>
+  <strong>Top Range</strong>
+  <h3 class="overview-h3"><span>{{ carmodel.range }}</span> miles</h3>
 <hr>
 <h3>Highlights</h3>
 
 <dl class="dl-horizontal feature-list">
-  <dt>Body Styles</dt>
-  <dd>4dr SUV<br> </dd>
-  <dt>Engines</dt>
-  <dd id="engines">245-hp, 2-liter 4-cylinder gas<br> 315-hp, 2.7-liter 6-cylinder gas<br> </dd>
-  <dt>Drive Train</dt>
-  <dd id="driveTrains">all wheel drive<br> front wheel drive<br> </dd>
-  <dt>Transmissions</dt>
-  <dd id="transmissions">6-speed automatic<br> </dd>
+  <dt>Body Style</dt><dd>{{ carmodel.body }}</dd>
+  <dt>Battery</dt><dd>{{ carmodel.battery }} kWh</dd>
+  <dt>Motor</dt><dd>{{ carmodel.motor }} kW electric motor</dd>
+  <dt>Power</dt><dd>{{ carmodel.power }} hp</dd>
+  <dt>Torque</dt><dd>{{ carmodel.torque }} lb-ft</dd>
+  <dt>Total Seating</dt><dd>{{ carmodel.seats }}</dd>
+  <dt>Drive Train</dt><dd>{{ carmodel.drive }}</dd>
+  <dt>Acceleration, 0-60 mph</dt><dd>7.9 sec</dd>
+  <dt>Fuel Economy</dt><dd>{{ carmodel.city_mpg }}/{{ carmodel.hwy_mpg }} mpg</dd>
 </dl>  </div>
           </div>
         </div>
