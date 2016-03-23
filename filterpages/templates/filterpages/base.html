@@ -1,10 +1,15 @@
-{% load staticfiles %}
+<!-- {% load staticfiles %} -->
+{% load compressed %}
 <html>
     <head>
         <title>Research a Car</title>
         <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
         <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
         <link rel="stylesheet" href="{% static 'css/list.css' %}">
+        {% compressed_css 'main' %}
+        {% compressed_js 'vendor' %}
+        {% compressed_js 'main' %}
+
     </head>
     <body>
         <nav id="headerNav" class="navbar navbar-default navbar-fixed-top">

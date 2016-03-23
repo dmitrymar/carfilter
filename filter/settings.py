@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.humanize',
     'filterpages',
+    'pipeline',
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -129,3 +130,55 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATICFILES_STORAGE = 'pipeline.storage.PipelineCachedStorage'
+STATICFILES_FINDERS = (
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+    'pipeline.finders.PipelineFinder',
+)
+
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, 'static'),
+)
+
+# TEMPLATE_DIRS = (
+#     os.path.join(BASE_DIR, 'templates'),
+# )
+
+PIPELINE = {
+    'PIPELINE_ENABLED': True,
+    'STYLESHEETS': {
+        'main': {
+            'source_filenames': (
+                'stylus/main.styl',
+            ),
+            'output_filename': 'css/main.css',
+        }
+    },
+    'JAVASCRIPT': {
+        'main': {
+            'source_filenames': (
+                'coffee/app.coffee',
+            ),
+            'output_filename': 'js/main.js',
+        },
+        'vendor': {
+            'source_filenames': (
+                'vendor/jquery.min.js',
+                'vendor/bootstrap.min.js',
+            ),
+            'output_filename': 'js/vendor.js',
+        }
+    }
+}
+
+PIPELINE['COMPILERS'] = (
+  'pipeline.compilers.sass.SASSCompiler',
+  'pipeline.compilers.coffee.CoffeeScriptCompiler',
+  'pipeline.compilers.es6.ES6Compiler',
+  'pipeline.compilers.stylus.StylusCompiler',
+)
+
+PIPELINE['CSS_COMPRESSOR'] = 'pipeline.compressors.yuglify.YuglifyCompressor'
+
+PIPELINE['JS_COMPRESSOR'] = 'pipeline.compressors.yuglify.YuglifyCompressor'
