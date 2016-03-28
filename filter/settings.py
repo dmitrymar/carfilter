@@ -69,6 +69,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'django.template.context_processors.static'
             ],
         },
     },
@@ -124,35 +125,35 @@ USE_L10N = True
 
 USE_TZ = True
 
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.9/howto/static-files/
-
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
-STATICFILES_STORAGE = 'pipeline.storage.PipelineCachedStorage'
-STATICFILES_FINDERS = (
-    'django.contrib.staticfiles.finders.FileSystemFinder',
-    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
-    'pipeline.finders.PipelineFinder',
-)
 
+# Extra places for collectstatic to find static files.
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
 
-# TEMPLATE_DIRS = (
-#     os.path.join(BASE_DIR, 'templates'),
-# )
+STATICFILES_STORAGE = 'pipeline.storage.PipelineStorage'
+
+STATICFILES_FINDERS = (
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+    'pipeline.finders.CachedFileFinder',
+    'pipeline.finders.PipelineFinder',
+)
+
+
 
 PIPELINE = {
     'PIPELINE_ENABLED': True,
     'STYLESHEETS': {
         'main': {
             'source_filenames': (
-                'stylus/main.styl',
+                'filterpages/sass/main.sass',
             ),
-            'output_filename': 'css/main.css',
+            'output_filename': 'filterpages/css/main.css',
         }
     },
     'JAVASCRIPT': {
@@ -164,10 +165,10 @@ PIPELINE = {
         },
         'vendor': {
             'source_filenames': (
-                'vendor/jquery.min.js',
-                'vendor/bootstrap.min.js',
+                'filterpages/vendor/jquery.min.js',
+                'filterpages/vendor/bootstrap.min.js',
             ),
-            'output_filename': 'js/vendor.js',
+            'output_filename': 'filterpages/js/vendor.js',
         }
     }
 }
@@ -176,7 +177,6 @@ PIPELINE['COMPILERS'] = (
   'pipeline.compilers.sass.SASSCompiler',
   'pipeline.compilers.coffee.CoffeeScriptCompiler',
   'pipeline.compilers.es6.ES6Compiler',
-  'pipeline.compilers.stylus.StylusCompiler',
 )
 
 PIPELINE['CSS_COMPRESSOR'] = 'pipeline.compressors.yuglify.YuglifyCompressor'
