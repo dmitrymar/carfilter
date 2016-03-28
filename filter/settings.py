@@ -42,7 +42,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.humanize',
     'filterpages',
-    'pipeline',
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -69,7 +68,6 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                'django.template.context_processors.static'
             ],
         },
     },
@@ -125,60 +123,9 @@ USE_L10N = True
 
 USE_TZ = True
 
+
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.9/howto/static-files/
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
 STATIC_URL = '/static/'
-
-# Extra places for collectstatic to find static files.
-STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, 'static'),
-)
-
-STATICFILES_STORAGE = 'pipeline.storage.PipelineStorage'
-
-STATICFILES_FINDERS = (
-    'django.contrib.staticfiles.finders.FileSystemFinder',
-    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
-    'pipeline.finders.CachedFileFinder',
-    'pipeline.finders.PipelineFinder',
-)
-
-
-
-PIPELINE = {
-    'PIPELINE_ENABLED': True,
-    'STYLESHEETS': {
-        'main': {
-            'source_filenames': (
-                'filterpages/sass/main.sass',
-            ),
-            'output_filename': 'filterpages/css/main.css',
-        }
-    },
-    'JAVASCRIPT': {
-        'main': {
-            'source_filenames': (
-                'coffee/app.coffee',
-            ),
-            'output_filename': 'js/main.js',
-        },
-        'vendor': {
-            'source_filenames': (
-                'filterpages/vendor/jquery.min.js',
-                'filterpages/vendor/bootstrap.min.js',
-            ),
-            'output_filename': 'filterpages/js/vendor.js',
-        }
-    }
-}
-
-PIPELINE['COMPILERS'] = (
-  'pipeline.compilers.sass.SASSCompiler',
-  'pipeline.compilers.coffee.CoffeeScriptCompiler',
-  'pipeline.compilers.es6.ES6Compiler',
-)
-
-PIPELINE['CSS_COMPRESSOR'] = 'pipeline.compressors.yuglify.YuglifyCompressor'
-
-PIPELINE['JS_COMPRESSOR'] = 'pipeline.compressors.yuglify.YuglifyCompressor'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
