@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.humanize',
     'filterpages',
+    'pipeline',
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -126,6 +127,35 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.9/howto/static-files/
-
+# static files will be served from the directory staticfiles at the URL /static/
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+# The file storage engine to use when collecting static files with the collectstatic management command.
+# https://docs.djangoproject.com/en/1.9/ref/settings/#std:setting-STATICFILES_STORAGE
+STATICFILES_STORAGE = 'pipeline.storage.PipelineStorage'
+
+STATICFILES_DIRS = []
+
+STATICFILES_FINDERS = (
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+    'pipeline.finders.CachedFileFinder',
+    'pipeline.finders.PipelineFinder',
+    'pipeline.finders.FileSystemFinder',
+)
+
+PIPELINE = {
+    'PIPELINE_ENABLED': True,
+    'JAVASCRIPT': {
+        'vendor': {
+            'source_filenames': (
+                'filterpages/vendor/jquery.min.js',
+                'filterpages/vendor/bootstrap.min.js',
+            ),
+            'output_filename': 'filterpages/js/vendor.js',
+        }
+    }
+}
+
+PIPELINE['JS_COMPRESSOR'] = 'pipeline.compressors.yuglify.YuglifyCompressor'
