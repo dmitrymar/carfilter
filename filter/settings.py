@@ -151,8 +151,8 @@ STATICFILES_FINDERS = [
 COMPRESS_PRECOMPILERS = (
     ('text/coffeescript', 'coffee --compile --stdio'),
     ('text/less', 'lessc {infile} {outfile}'),
-    ('text/x-sass', 'sass {infile} {outfile}'),
-    ('text/x-scss', 'sass --scss {infile} {outfile}'),
     ('text/stylus', 'stylus < {infile} > {outfile}'),
     ('text/foobar', 'path.to.MyPrecompilerFilter'),
+    ('text/x-sass', 'django_libsass.SassCompiler'),    
+    ('text/x-scss', 'django_libsass.SassCompiler'),
 )
