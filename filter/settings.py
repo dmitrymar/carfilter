@@ -28,6 +28,10 @@ SECRET_KEY = environ['SECRET_KEY']
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+# https://django-compressor.readthedocs.org/en/latest/settings/#base-settings
+COMPRESS_ENABLED = True
+COMPRESS_OFFLINE = False
+
 ALLOWED_HOSTS = []
 
 
@@ -42,7 +46,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.humanize',
     'filterpages',
-    'pipeline',
+    'compressor',
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -133,29 +137,22 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 # The file storage engine to use when collecting static files with the collectstatic management command.
 # https://docs.djangoproject.com/en/1.9/ref/settings/#std:setting-STATICFILES_STORAGE
-STATICFILES_STORAGE = 'pipeline.storage.PipelineStorage'
+STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.CachedStaticFilesStorage'
+#COMPRESS_STORAGE = 'compressor.storage.CompressorFileStorage'
 
 STATICFILES_DIRS = []
 
-STATICFILES_FINDERS = (
+STATICFILES_FINDERS = [
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
-    'pipeline.finders.CachedFileFinder',
-    'pipeline.finders.PipelineFinder',
-    'pipeline.finders.FileSystemFinder',
+    'compressor.finders.CompressorFinder',
+]
+
+COMPRESS_PRECOMPILERS = (
+    ('text/coffeescript', 'coffee --compile --stdio'),
+    ('text/less', 'lessc {infile} {outfile}'),
+    ('text/x-sass', 'sass {infile} {outfile}'),
+    ('text/x-scss', 'sass --scss {infile} {outfile}'),
+    ('text/stylus', 'stylus < {infile} > {outfile}'),
+    ('text/foobar', 'path.to.MyPrecompilerFilter'),
 )
-
-PIPELINE = {
-    'PIPELINE_ENABLED': True,
-    'JAVASCRIPT': {
-        'vendor': {
-            'source_filenames': (
-                'filterpages/vendor/jquery.min.js',
-                'filterpages/vendor/bootstrap.min.js',
-            ),
-            'output_filename': 'filterpages/js/vendor.js',
-        }
-    }
-}
-
-PIPELINE['JS_COMPRESSOR'] = 'pipeline.compressors.yuglify.YuglifyCompressor'

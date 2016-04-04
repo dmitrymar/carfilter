@@ -1,12 +1,18 @@
 {% load staticfiles %}
-{% load pipeline %}
+{% load compress %}
 <html>
     <head>
         <title>Research a Car</title>
         <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
         <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
-        <link rel="stylesheet" href="{% static 'filterpages/css/list.css' %}">
-        {% javascript 'vendor' %}
+        {% compress css %}
+        <link type="text/x-scss" rel="stylesheet" href="{% static 'filterpages/scss/app.scss' %}" charset="utf-8">
+        {% endcompress %}
+
+        {% compress js %}
+        <script src="{% static 'filterpages/vendor/bootstrap.min.js' %}" type="text/javascript" charset="utf-8"></script>
+        <script src="{% static 'filterpages/vendor/jquery-2.2.2.min.js' %}" type="text/javascript" charset="utf-8"></script>
+        {% endcompress %}
     </head>
     <body>
         <nav id="headerNav" class="navbar navbar-default navbar-fixed-top">
@@ -24,7 +30,6 @@
 
               </div><!-- /.container -->
             </nav>
-            <br><br>
         <div class="content container">
             <div class="row">
                 <div class="col-md-8">
