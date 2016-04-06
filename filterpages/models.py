@@ -18,6 +18,39 @@ class Post(models.Model):
         return self.title
 
 class Carmodel(models.Model):
+    display = models.BooleanField(default=True)
+    year = models.PositiveSmallIntegerField(default=2016)
+
+    MITS = 'Mitsubishi'
+    SMRT = 'smart'
+    CHEV = 'Chevrolet'
+    VW = 'Volkswagen'
+    NISS = 'Nissan'
+    FORD = 'Ford'
+    FIAT = 'FIAT'
+    KIA = 'Kia'
+    MB = 'Mercedes-Benz'
+    BMW = 'BMW'
+    TSLA = 'Tesla'
+    MAKES = (
+        (MITS, 'Mitsubishi'),
+        (SMRT, 'smart'),
+        (CHEV, 'Chevrolet'),
+        (VW, 'Volkswagen'),
+        (NISS, 'Nissan'),
+        (FORD, 'Ford'),
+        (FIAT, 'FIAT'),
+        (KIA, 'Kia'),
+        (MB, 'Mercedes-Benz'),
+        (BMW, 'BMW'),
+        (TSLA, 'Tesla'),
+    )
+    make = models.CharField(max_length=60,
+                                      choices=MAKES,
+                                      blank=True)
+
+    model = models.CharField(max_length=60)
+
     SEDAN = 'Sedan'
     WAGON = 'Wagon'
     HATCHBACK = 'Hatchback'
@@ -30,9 +63,20 @@ class Carmodel(models.Model):
     )
     body = models.CharField(max_length=60,
                                       choices=BODY_STYLES,
-                                      default=SEDAN)
+                                      blank=True)
+    FWD = 'front-wheel drive'
+    RWD = 'rear-wheel drive'
+    AWD = 'all-wheel drive'
+    DRIVE_TYPES = (
+        (FWD, 'front-wheel drive'),
+        (RWD, 'rear-wheel drive'),
+        (AWD, 'all-wheel drive'),
+    )
+    drive = models.CharField(max_length=60,
+                                      choices=DRIVE_TYPES,
+                                      blank=True)
 
-    year = models.PositiveSmallIntegerField(default=2016)
+
     city_mpg = models.PositiveSmallIntegerField(blank=True, null=True)
     hwy_mpg = models.PositiveSmallIntegerField(blank=True, null=True)
     range = models.PositiveSmallIntegerField(blank=True, null=True)
@@ -44,13 +88,11 @@ class Carmodel(models.Model):
     power = models.CharField(max_length=255, default=0)
     torque = models.PositiveSmallIntegerField(blank=True, null=True)
     seats = models.PositiveSmallIntegerField(blank=True, null=True)
-    make = models.CharField(max_length=60)
-    model = models.CharField(max_length=60)
     version = models.CharField(max_length=60, blank=True)
-    drive = models.CharField(max_length=60, blank=True)
-    styles = models.PositiveSmallIntegerField(default=1)
+    styles = models.PositiveSmallIntegerField(blank=True, null=True)
     lowest_price = models.PositiveIntegerField()
-    image_url = models.CharField(max_length=100)
+    zero_two_sixty = models.DecimalField(blank=True, null=True, max_digits=5, decimal_places=1)
+    image_url = models.CharField(max_length=255)
 
     def get_page_path(self):
         pagepath = "/".join(["/overview", str(self.year), self.make, self.model, self.body, self.version])

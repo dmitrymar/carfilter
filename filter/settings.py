@@ -31,6 +31,7 @@ DEBUG = True
 # https://django-compressor.readthedocs.org/en/latest/settings/#base-settings
 COMPRESS_ENABLED = True
 COMPRESS_OFFLINE = False
+LIBSASS_SOURCEMAPS = True
 
 ALLOWED_HOSTS = []
 
@@ -153,6 +154,6 @@ COMPRESS_PRECOMPILERS = (
     ('text/less', 'lessc {infile} {outfile}'),
     ('text/stylus', 'stylus < {infile} > {outfile}'),
     ('text/foobar', 'path.to.MyPrecompilerFilter'),
-    ('text/x-sass', 'django_libsass.SassCompiler'),    
+    ('text/x-sass', 'django_libsass.SassCompiler'),
     ('text/x-scss', 'django_libsass.SassCompiler'),
 )

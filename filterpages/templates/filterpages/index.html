@@ -19,22 +19,24 @@
             <div class="col-md-9">
                 <div class="row">
                     {% for carmodel in carmodels %}
-                        <div class="col-sm-6 col-md-4">
-                                <a href="{% url 'overview' year=carmodel.year make=carmodel.make|slugify model=carmodel.model|slugify body=carmodel.body|slugify version=carmodel.version|slugify %}">
-                                    <div class="thumbnail">
-                                      <img class="thumbnail-pic" src="{{ carmodel.image_url|carpic:276 }}">
-                                      <div class="caption">
-                                        <p class="thumbnail-yearmake">{{ carmodel.year }} {{ carmodel.make }}</p>
-                                        <p class="thumbnail-model">{{ carmodel.model }} {{ carmodel.version }}</p>
-                                        <p>{{ carmodel.styles }} styles</p>
-                                        <p>
-                                          <span class="thumbnail-msrp">Starting at</span> ${{ carmodel.lowest_price|intcomma }}
-                                          <span class="thumbnail-msrp">MSRP</span>
-                                        </p>
-                                      </div>
-                                    </div>
-                                  </a>
-                        </div>
+                        {% if carmodel.display %}
+                            <div class="col-sm-6 col-md-4">
+                            <a href="{% url 'overview' year=carmodel.year make=carmodel.make|slugify model=carmodel.model|slugify body=carmodel.body|slugify version=carmodel.version|slugify %}">
+                                <div class="thumbnail">
+                                  <img class="thumbnail-pic" src="{{ carmodel.image_url|carpic:276 }}">
+                                  <div class="caption">
+                                    <p class="thumbnail-yearmake">{{ carmodel.year }} {{ carmodel.make }}</p>
+                                    <p class="thumbnail-model">{{ carmodel.model }} {{ carmodel.version }}</p>
+                                    <p>{{ carmodel.range }} miles range</p>
+                                    <p>
+                                      <span class="thumbnail-msrp">Starting at</span> ${{ carmodel.lowest_price|intcomma }}
+                                      <span class="thumbnail-msrp">MSRP</span>
+                                    </p>
+                                  </div>
+                                </div>
+                              </a>
+                            </div>
+                        {% endif %}
                     {% endfor %}
                 </div>
             </div>

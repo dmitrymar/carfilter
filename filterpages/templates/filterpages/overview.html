@@ -29,12 +29,14 @@
 <dl class="dl-horizontal feature-list">
   <dt>Body Style</dt><dd>{{ carmodel.body }}</dd>
   <dt>Battery</dt><dd>{{ carmodel.battery }} kWh</dd>
-  <dt>Motor</dt><dd>{{ carmodel.motor }} kW electric motor</dd>
+  {% if carmodel.motor %}
+      <dt>Motor</dt><dd>{{ carmodel.motor }} kW electric motor</dd>
+  {% endif %}
   <dt>Power</dt><dd>{{ carmodel.power }} hp</dd>
   <dt>Torque</dt><dd>{{ carmodel.torque }} lb-ft</dd>
   <dt>Total Seating</dt><dd>{{ carmodel.seats }}</dd>
   <dt>Drive Train</dt><dd>{{ carmodel.drive }}</dd>
-  <dt>Acceleration, 0-60 mph</dt><dd>7.9 sec</dd>
+  <dt>0-60 mph</dt><dd>{{ carmodel.zero_two_sixty }} sec</dd>
   <dt>Fuel Economy</dt><dd>{{ carmodel.city_mpg }}/{{ carmodel.hwy_mpg }} mpg</dd>
 </dl>  </div>
           </div>

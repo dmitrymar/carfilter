@@ -51,12 +51,12 @@ body {
   opacity:0.8;
 }
 .feature-list {
-	dt {
-		width: auto;
-	}
+    dt {
+        text-align: left;
+        margin-right: 1em;
+    }
 	dd {
 		margin-left: 12rem;
-		text-transform: capitalize;
 	}
 }
 .overview-h3 {
