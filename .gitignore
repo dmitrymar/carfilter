@@ -6,4 +6,4 @@ db.sqlite3
 /staticfiles
 .DS_Store
 /.sass-cache
-filterpages/static/filterpages/js/node_modules
+/node_modules
