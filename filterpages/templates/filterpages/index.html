@@ -1,19 +1,102 @@
 {% extends 'filterpages/base.html' %}
-{% load humanize filterpages_extras %}
+{% load humanize filterpages_extras staticfiles %}
+
+{% block customjs %}
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/babel-polyfill/6.7.4/polyfill.min.js"></script>
+<script type="text/javascript" src="{% static 'filterpages/js/dist/bundle.js' %}"></script>
+{% endblock %}
+
 
 {% block content %}
-    <!-- {% for post in posts %}
-        <div class="post">
-            <div class="date">
-                <p>published: {{ post.published_date }}</p>
-            </div>
-            <h1><a href="{% url 'detail' pk=post.pk %}">{{ post.title }}</a></h1>
-            <p>{{ post.text|linebreaks }}{% url 'detail' pk=post.pk %}</p>
-        </div>
-    {% endfor %} -->
+    <div id="content">test</div>
     <div class="container">
         <div class="row">
-            <div class="col-md-3">
+            <div class="col-md-3" id="filterPanel">
+
+                <div class="panel-group" id="accordion">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">
+                                <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" class="accordion-btn">
+                                    Range<span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span>
+                                </a>
+                            </h4>
+                        </div>
+                        <div id="collapseOne" class="panel-collapse collapse in">
+                            <div class="panel-body">
+                                <p>HTML stands for HyperText Markup Language. HTML is the main markup language for describing the structure of Web pages. <a href="http://www.tutorialrepublic.com/html-tutorial/" target="_blank">Learn more.</a></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">
+                                <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" class="accordion-btn">
+                                    Body Type<span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span>
+                                </a>
+                            </h4>
+                        </div>
+                        <div id="collapseTwo" class="panel-collapse collapse in">
+                            <div class="panel-body">
+                                <div class="checkbox ">
+                                  <label>
+                                    <input type="checkbox" name="bodyType" data-id="1000" class="toggle" value="hatchback">
+                                    Hatchback
+                                  </label>
+                                </div>
+                                <div class="checkbox ">
+                                  <label>
+                                    <input type="checkbox" name="bodyType" data-id="1001" class="toggle" value="sedan">
+                                    Sedan
+                                  </label>
+                                </div>
+                                <div class="checkbox ">
+                                  <label>
+                                    <input type="checkbox" name="bodyType" data-id="1002" class="toggle" value="suv">
+                                    SUV
+                                  </label>
+                                </div>
+                                <div class="checkbox ">
+                                  <label>
+                                    <input type="checkbox" name="bodyType" data-id="1003" class="toggle" value="wagon">
+                                    Wagon
+                                  </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">
+                                <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree" class="accordion-btn">
+                                    Drivetrain<span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span>
+                                </a>
+                            </h4>
+                        </div>
+                        <div id="collapseThree" class="panel-collapse collapse in">
+                            <div class="panel-body">
+                                <div class="checkbox ">
+                                  <label>
+                                    <input type="checkbox" name="driveTrain" data-id="1008" class="toggle" value="front wheel drive">
+                                    Front-Wheel Drive
+                                  </label>
+                                </div>
+                                <div class="checkbox ">
+                                  <label>
+                                    <input type="checkbox" name="driveTrain" data-id="1009" class="toggle" value="rear wheel drive">
+                                    Rear-Wheel Drive
+                                  </label>
+                                </div>
+                                <div class="checkbox ">
+                                  <label>
+                                    <input type="checkbox" name="driveTrain" data-id="1007" class="toggle" value="all wheel drive">
+                                    All-Wheel Drive
+                                  </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
             </div>
             <div class="col-md-9">

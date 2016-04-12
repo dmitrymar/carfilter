@@ -156,4 +156,5 @@ COMPRESS_PRECOMPILERS = (
     ('text/foobar', 'path.to.MyPrecompilerFilter'),
     ('text/x-sass', 'django_libsass.SassCompiler'),
     ('text/x-scss', 'django_libsass.SassCompiler'),
+    ('text/jsx', 'cat {infile} | babel > {outfile}'),
 )
