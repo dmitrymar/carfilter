@@ -4,7 +4,7 @@ module.exports = {
         path: './filterpages/static/filterpages/js/dist',
         filename: 'bundle.js'
     },
-    // need to figure out how to enable watch 
+    // need to figure out how to enable watch
     //watch: true,
     devtool: 'source-map',
     module: {

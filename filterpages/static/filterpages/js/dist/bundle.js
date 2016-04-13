@@ -48,11 +48,25 @@
 	
 	var _arithmetic = __webpack_require__(1);
 	
-	var result = _arithmetic.operations.add(4, 2);
+	var result = _arithmetic.operations.add(1, 1);
 	console.log(result);
 	
 	result = _arithmetic.operations.subtract(1, 4);
 	console.log(result);
+	
+	// tutorial1.js
+	var CommentBox = React.createClass({
+	  displayName: 'CommentBox',
+	
+	  render: function render() {
+	    return React.createElement(
+	      'div',
+	      { className: 'commentBox' },
+	      'Hello, world! I am a CommentBox.'
+	    );
+	  }
+	});
+	ReactDOM.render(React.createElement(CommentBox, null), document.getElementById('content'));
 
 /***/ },
 /* 1 */
