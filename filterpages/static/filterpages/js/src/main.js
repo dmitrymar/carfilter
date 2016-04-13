@@ -1,6 +1,6 @@
 import {operations} from './arithmetic.js';
 
-let result = operations.add(1, 1);
+let result = operations.add(1, 3);
 console.log(result);
 
 result = operations.subtract(1, 4);
