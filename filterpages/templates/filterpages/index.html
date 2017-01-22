@@ -2,129 +2,375 @@
 {% load humanize filterpages_extras staticfiles %}
 
 {% block customjs %}
-<script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.0.1/react.js"></script>
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.0.1/react.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.0.1/react-dom.js"></script>
-<script type="text/javascript" src="{% static 'filterpages/js/dist/bundle.js' %}" async></script>
+<script type="text/javascript" src="{% static 'filterpages/js/dist/bundle.js' %}" async></script> -->
+<style>
+body {
+    padding-top: 50px;
+}
+.item {
+  width: 262px;
+  height: 222px;
+  padding:0.5em;
+  margin: 0.5em;
+  color: white;
+  float: left;
+
+}
+
+p {
+  margin: 0;
+}
+
+
+</style>
+
+
+
 {% endblock %}
 
 
 {% block content %}
-    <div id="content">test</div>
-    <div class="container">
-        <div class="row">
-            <div class="col-md-3" id="filterPanel">
+<div class="container">
+  <div class="row">
+    <div class="col-md-3" id="options">
+      <div class="option-set" data-group="make">
+        <h5>Make</h5>
+        <div class="form-group">
+          <div class="checkbox">
+            <label><input type="checkbox" class="toggle" value=".bmw" id="bmw">BMW</label>
+          </div>
 
-                <div class="panel-group" id="accordion">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <h4 class="panel-title">
-                                <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" class="accordion-btn">
-                                    Range<span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span>
-                                </a>
-                            </h4>
-                        </div>
-                        <div id="collapseOne" class="panel-collapse collapse in">
-                            <div class="panel-body">
-                                <p>HTML stands for HyperText Markup Language. HTML is the main markup language for describing the structure of Web pages. <a href="http://www.tutorialrepublic.com/html-tutorial/" target="_blank">Learn more.</a></p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <h4 class="panel-title">
-                                <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" class="accordion-btn">
-                                    Body Type<span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span>
-                                </a>
-                            </h4>
-                        </div>
-                        <div id="collapseTwo" class="panel-collapse collapse in">
-                            <div class="panel-body">
-                                <div class="checkbox ">
-                                  <label>
-                                    <input type="checkbox" name="bodyType" data-id="1000" class="toggle" value="hatchback">
-                                    Hatchback
-                                  </label>
-                                </div>
-                                <div class="checkbox ">
-                                  <label>
-                                    <input type="checkbox" name="bodyType" data-id="1001" class="toggle" value="sedan">
-                                    Sedan
-                                  </label>
-                                </div>
-                                <div class="checkbox ">
-                                  <label>
-                                    <input type="checkbox" name="bodyType" data-id="1002" class="toggle" value="suv">
-                                    SUV
-                                  </label>
-                                </div>
-                                <div class="checkbox ">
-                                  <label>
-                                    <input type="checkbox" name="bodyType" data-id="1003" class="toggle" value="wagon">
-                                    Wagon
-                                  </label>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <h4 class="panel-title">
-                                <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree" class="accordion-btn">
-                                    Drivetrain<span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span>
-                                </a>
-                            </h4>
-                        </div>
-                        <div id="collapseThree" class="panel-collapse collapse in">
-                            <div class="panel-body">
-                                <div class="checkbox ">
-                                  <label>
-                                    <input type="checkbox" name="driveTrain" data-id="1008" class="toggle" value="front wheel drive">
-                                    Front-Wheel Drive
-                                  </label>
-                                </div>
-                                <div class="checkbox ">
-                                  <label>
-                                    <input type="checkbox" name="driveTrain" data-id="1009" class="toggle" value="rear wheel drive">
-                                    Rear-Wheel Drive
-                                  </label>
-                                </div>
-                                <div class="checkbox ">
-                                  <label>
-                                    <input type="checkbox" name="driveTrain" data-id="1007" class="toggle" value="all wheel drive">
-                                    All-Wheel Drive
-                                  </label>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+          <div class="checkbox">
+            <label><input type="checkbox" class="toggle" value=".chevrolet" id="chevrolet">Chevrolet</label>
+          </div>
 
-            </div>
-            <div class="col-md-9">
-                <div class="row">
-                    {% for carmodel in carmodels %}
-                        {% if carmodel.display %}
-                            <div class="col-sm-6 col-md-4">
-                            <a href="{% url 'overview' year=carmodel.year make=carmodel.make|slugify model=carmodel.model|slugify body=carmodel.body|slugify version=carmodel.version|slugify %}">
-                                <div class="thumbnail">
-                                  <img class="thumbnail-pic" src="{{ carmodel.image_url|carpic:276 }}">
-                                  <div class="caption">
-                                    <p class="thumbnail-yearmake">{{ carmodel.year }} {{ carmodel.make }}</p>
-                                    <p class="thumbnail-model">{{ carmodel.model }} {{ carmodel.version }}</p>
-                                    <p>{{ carmodel.range }} miles range</p>
-                                    <p>
-                                      <span class="thumbnail-msrp">Starting at</span> ${{ carmodel.lowest_price|intcomma }}
-                                      <span class="thumbnail-msrp">MSRP</span>
-                                    </p>
-                                  </div>
-                                </div>
-                              </a>
-                            </div>
-                        {% endif %}
-                    {% endfor %}
-                </div>
-            </div>
+          <div class="checkbox">
+            <label><input type="checkbox" class="toggle" value=".fiat" id="fiat">FIAT</label>
+          </div>
+
+          <div class="checkbox">
+            <label><input type="checkbox" class="toggle" value=".ford" id="ford">Ford</label>
+          </div>
+
+          <div class="checkbox">
+            <label><input type="checkbox" class="toggle" value=".kia" id="kia">Kia</label>
+          </div>
+
+          <div class="checkbox">
+            <label><input type="checkbox" class="toggle" value=".mb" id="mb">Mercedes-Benz</label>
+          </div>
+
+          <div class="checkbox">
+            <label><input type="checkbox" class="toggle" value=".mitsu" id="mitsu">Mitsubishi</label>
+          </div>
+
+          <div class="checkbox">
+            <label><input type="checkbox" class="toggle" value=".nissan" id="nissan">Nissan</label>
+          </div>
+
+          <div class="checkbox">
+            <label><input type="checkbox" class="toggle" value=".smart" id="smart">smart</label>
+          </div>
+
+          <div class="checkbox">
+            <label><input type="checkbox" class="toggle" value=".tesla" id="tesla">Tesla</label>
+          </div>
+
+          <div class="checkbox">
+            <label><input type="checkbox" class="toggle" value=".vw" id="vw">Volkswagen</label>
+          </div>
         </div>
-    </div>
 
+      </div>
+      <!--    End of make      -->
+
+      <div class="option-set" data-group="range">
+        <h5>Range</h5>
+
+        <div class="checkbox">
+          <label><input type="checkbox" class="toggle" value=".zero" id="zero">Up to 100 miles</label>
+        </div>
+
+        <div class="checkbox">
+          <label><input type="checkbox" class="toggle" value=".one" id="one">100 - 200 miles</label>
+        </div>
+
+        <div class="checkbox">
+          <label><input type="checkbox" class="toggle" value=".two" id="two">200 - 300 miles</label>
+        </div>
+
+        <div class="checkbox">
+          <label><input type="checkbox" class="toggle" value=".three" id="three">300 - 400 miles</label>
+        </div>
+      </div>
+      <!--   End Range     -->
+
+      <div class="option-set" data-group="body">
+
+        <h5>Body</h5>
+
+        <div class="checkbox">
+          <label><input type="checkbox" class="toggle" value=".hatchback" id="hatchback">Hatchback</label>
+        </div>
+
+        <div class="checkbox">
+          <label><input type="checkbox" class="toggle" value=".sedan" id="sedan">Sedan</label>
+        </div>
+
+        <div class="checkbox">
+          <label><input type="checkbox" class="toggle" value=".suv" id="suv">SUV</label>
+        </div>
+
+        <div class="checkbox">
+          <label><input type="checkbox" class="toggle" value=".wagon" id="wagon">Wagon</label>
+        </div>
+      </div>
+
+      <div class="option-set" data-group="drive">
+        <h5>Drivetrain</h5>
+        <div class="checkbox">
+          <label><input type="checkbox" class="toggle" value=".awd" id="awd">All-Wheel Drive</label>
+        </div>
+        <div class="checkbox">
+          <label><input type="checkbox" class="toggle" value=".fwd" id="fwd">Front-Wheel Drive</label>
+        </div>
+        <div class="checkbox">
+          <label><input type="checkbox" class="toggle" value=".rwd" id="rwd">Rear-Wheel Drive</label>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-9">
+      <div class="row grid" id="container">
+        <div class="item bmw zero hatchback rwd">
+          <a href="//www.bmwusa.com/bmw/bmwi/i3" target="_blank">
+            <div class="thumbnail">
+              <img src="//media.ed.edmunds-media.com/bmw/i3/2016/oem/2016_bmw_i3_4dr-hatchback_base_fq_oem_3_276.jpg">
+              <div class="caption">2016 BMW i3</div>
+            </div>
+          </a>
+        </div>
+        <div class="item chevrolet zero hatchback fwd">
+          <a href="//www.chevrolet.com/spark-ev-electric-vehicle.html" target="_blank">
+            <div class="thumbnail">
+              <img class="thumbnail-pic" src="//media.ed.edmunds-media.com/chevrolet/spark-ev/2016/oem/2016_chevrolet_spark-ev_4dr-hatchback_2lt_fq_oem_1_276.jpg">
+              <div class="caption">2016 Chevrolet Spark EV</div>
+            </div>
+          </a>
+        </div>
+        <div class="item fiat zero hatchback fwd">
+          <a href="//www.fiatusa.com/en/500e/" target="_blank">
+            <div class="thumbnail">
+              <img class="thumbnail-pic" src="//media.ed.edmunds-media.com/fiat/500e/2016/oem/2016_fiat_500e_2dr-hatchback_base_fq_oem_1_276.jpg">
+              <div class="caption">2016 FIAT 500e</div>
+            </div>
+          </a>
+        </div>
+        <div class="item ford zero hatchback fwd">
+          <a href="//www.ford.com/cars/focus/trim/electric/" target="_blank">
+            <div class="thumbnail">
+              <img src="//media.ed.edmunds-media.com/ford/focus/2016/oem/2016_ford_focus_4dr-hatchback_electric_fq_oem_3_276.jpg">
+              <div class="caption">2016 Chevrolet Spark EV</div>
+            </div>
+          </a>
+        </div>
+        <div class="item kia zero wagon fwd">
+          <a href="//www.kia.com/us/en/vehicle/soul-ev/2016" target="_blank">
+            <div class="thumbnail">
+              <img src="//media.ed.edmunds-media.com/kia/soul-ev/2016/oem/2016_kia_soul-ev_wagon_plus_fq_oem_4_276.jpg">
+              <div class="caption">2016 Chevrolet Spark EV</div>
+            </div>
+          </a>
+        </div>
+        <div class="item mb zero hatchback fwd">
+          <a href="//www.mbusa.com/mercedes/vehicles/model/class-B/model-B250E" target="_blank">
+            <div class="thumbnail">
+              <img src="//media.ed.edmunds-media.com/mercedes-benz/b-class-electric-drive/2016/oem/2016_mercedes-benz_b-class-electric-drive_4dr-hatchback_b250e_fq_oem_1_276.jpg">
+              <div class="caption">2016 Chevrolet Spark EV</div>
+            </div>
+          </a>
+        </div>
+        <div class="item mitsu zero hatchback rwd">
+          <a href="//www.mitsubishicars.com/imiev" target="_blank">
+            <div class="thumbnail">
+              <img src="//media.ed.edmunds-media.com/mitsubishi/i-miev/2012/oem/2012_mitsubishi_i-miev_4dr-hatchback_es_fq_oem_6_276.jpg">
+              <div class="caption">2016 Chevrolet Spark EV</div>
+            </div>
+          </a>
+        </div>
+        <div class="item nissan zero one hatchback fwd">
+          <a href="//www.nissanusa.com/Leaf" target="_blank">
+            <div class="thumbnail">
+              <img src="//media.ed.edmunds-media.com/nissan/leaf/2016/oem/2016_nissan_leaf_4dr-hatchback_sl_fq_oem_4_276.jpg">
+              <div class="caption">2016 Chevrolet Spark EV</div>
+            </div>
+          </a>
+        </div>
+        <div class="item smart zero hatchback rwd">
+          <a href="//www.smartusa.com/models/electric-coupe" target="_blank">
+            <div class="thumbnail">
+              <img src="//media.ed.edmunds-media.com/smart/fortwo/2016/oem/2016_smart_fortwo_2dr-hatchback_electric-drive-coupe_fq_oem_2_276.jpg">
+              <div class="caption">2016 Chevrolet Spark EV</div>
+            </div>
+          </a>
+        </div>
+        <div class="item tesla two three sedan awd rwd">
+          <a href="//www.teslamotors.com/models" target="_blank">
+            <div class="thumbnail">
+              <img src="//media.ed.edmunds-media.com/tesla/model-s/2016/oem/2016_tesla_model-s_sedan_p90d_fq_oem_2_276.jpg">
+              <div class="caption">2016 Chevrolet Spark EV</div>
+            </div>
+          </a>
+        </div>
+        <div class="item tesla two suv awd">
+          <a href="//www.teslamotors.com/modelx" target="_blank">
+            <div class="thumbnail">
+              <img src="//media.ed.edmunds-media.com/tesla/model-x/2016/oem/2016_tesla_model-x_4dr-suv_p90d_fq_oem_1_276.jpg">
+              <div class="caption">2016 Chevrolet Spark EV</div>
+            </div>
+          </a>
+        </div>
+        <div class="item vw zero hatchback fwd">
+          <a href="//www.vw.com/models/e-golf" target="_blank">
+            <div class="thumbnail">
+              <img src="//media.ed.edmunds-media.com/volkswagen/e-golf/2016/oem/2016_volkswagen_e-golf_4dr-hatchback_sel-premium_fq_oem_4_276.jpg">
+              <div class="caption">2016 Chevrolet Spark EV</div>
+            </div>
+          </a>
+        </div>
+      </div>
+      <!--  grid  -->
+    </div>
+    <!--  col-md-9  -->
+  </div>
+  <!--  row  -->
+</div>
+<!-- container -->
+
+<script>
+/*jshint browser:true, undef: true, unused: true, jquery: true */
+var facets = [
+  {
+    "facetTitle": "Make",
+    "facet": "make",
+    "facetValues": [
+      {
+        "value": "bmw",
+        "valueTitle": "BMW"
+      },
+      {
+        "value": "chevrolet",
+        "valueTitle": "Chevrolet"
+      },
+      {
+        "value": "fiat",
+        "valueTitle": "FIAT"
+      },
+      {
+        "value": "ford",
+        "valueTitle": "Ford"
+      }
+    ]
+  },
+  {
+    "facetTitle": "Range",
+    "facet": "range",
+    "facetValues": [
+      {
+        "value": "zero",
+        "valueTitle": "Up to 100 miles"
+      },
+      {
+        "value": "one",
+        "valueTitle": "100 to 200 miles"
+      },
+      {
+        "value": "two",
+        "valueTitle": "200 to 300 miles"
+      },
+      {
+        "value": "three",
+        "valueTitle": "300 to 400 miles"
+      }
+    ]
+  }
+];
+
+facets.map((facet) => {console.log(facet.facetTitle)})
+
+// store filter per group
+var filters = {};
+
+var $container = $('#container');
+
+var $filterDisplay = $('#filter-display');
+var $options = document.getElementById('options');
+
+$container.isotope();
+// do stuff when checkbox change
+// $('#options').on( 'change', function( event ) {
+//     changeEvent(event);
+// });
+
+$options.addEventListener('change', function (e) {
+ changeEvent(event);
+}, false);
+
+function changeEvent(event) {
+    var checkbox = event.target;
+    var $checkbox = $( checkbox );
+    var group = $checkbox.parents('.option-set').attr('data-group');
+    // create array for filter group, if not there yet
+    var filterGroup = filters[ group ];
+    if ( !filterGroup ) {
+      filterGroup = filters[ group ] = [];
+    }
+    // add/remove filter
+    if ( checkbox.checked ) {
+      // add filter
+      filterGroup.push( checkbox.value );
+    } else {
+      // remove filter
+      var index = filterGroup.indexOf( checkbox.value );
+      filterGroup.splice( index, 1 );
+    }
+
+    var comboFilter = getComboFilter();
+    $container.isotope({ filter: comboFilter });
+    $filterDisplay.text( comboFilter );
+}
+
+function getComboFilter() {
+  var combo = [];
+  for ( var prop in filters ) {
+    var group = filters[ prop ];
+    if ( !group.length ) {
+      // no filters in group, carry on
+      continue;
+    }
+    // add first group
+    if ( !combo.length ) {
+      combo = group.slice(0);
+      continue;
+    }
+    // add additional groups
+    var nextCombo = [];
+    // split group into combo: [ A, B ] & [ 1, 2 ] => [ A1, A2, B1, B2 ]
+    for ( var i=0; i < combo.length; i++ ) {
+      for ( var j=0; j < group.length; j++ ) {
+        var item = combo[i] + group[j];
+        nextCombo.push( item );
+      }
+    }
+    combo = nextCombo;
+  }
+  var comboFilter = combo.join(', ');
+  return comboFilter;
+}
+
+
+
+
+</script>
 {% endblock %}

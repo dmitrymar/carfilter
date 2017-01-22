@@ -1,22 +1,7 @@
-import {operations} from './arithmetic.js';
 
-let result = operations.add(1, 3);
-console.log(result);
+import {BodyStyle} from './filters.js';
 
-result = operations.subtract(1, 4);
-console.log(result);
-
-// tutorial1.js
-var CommentBox = React.createClass({
-  render: function() {
-    return (
-      <div className="commentBox">
-        Hello, world! I am a CommentBox.
-      </div>
-    );
-  }
-});
 ReactDOM.render(
-  <CommentBox />,
+  <BodyStyle source="https://api.github.com/users/octocat/gists" />,
   document.getElementById('content')
 );
